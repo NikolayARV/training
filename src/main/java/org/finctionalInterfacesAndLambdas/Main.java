@@ -13,24 +13,14 @@ public class Main {
         Predicate<Integer> predicate = new Predicate<Integer>() {
             @Override
             public boolean test(Integer integer) {
-                if (integer > 0) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return integer > 0;
             }
         };
 
         System.out.println(predicate.test(-5));
         System.out.println(predicate.test(5));
 
-        Predicate<Integer> predicate1 = integer -> {
-            if (integer > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        };
+        Predicate<Integer> predicate1 = integer -> integer > 0;
         System.out.println(predicate1.test(-5));
         System.out.println(predicate1.test(5));
 
@@ -80,13 +70,10 @@ public class Main {
             Predicate<? super T> condition,
             Function<? super T, ? extends U> ifTrue,
             Function<? super T, ? extends U> ifFalse) {
-        if (condition.equals(true)) {
-            return (Function<T, U>) ifTrue;
-        } else {
-            return (Function<T, U>) ifFalse;
+        return t -> condition.test(t) ?
+        ifTrue.apply(t) : ifFalse.apply (t);
 
         }
 
 
     }
-}
